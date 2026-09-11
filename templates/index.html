@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="home-intro">
+    <h1>Bem-vindo!</h1>
+    <p>Selecione uma área para explorar os dados e indicadores</p>
+</section>
+
+<section class="folder-stage" aria-label="Áreas do dashboard">
+    <div class="folder-card folder-back">
+        <a href="/carteira" class="folder-tab">
+            <svg class="folder-icon" aria-hidden="true"><use href="#icon-folder"></use></svg>
+            <strong>Carteira de Auditoria</strong>
+        </a>
+        <div class="folder-body">
+            <div class="folder-body-icon"><svg class="icon" aria-hidden="true"><use href="#icon-portfolio"></use></svg></div>
+            <p>Ciclo de vida de cada auditoria em andamento.</p>
+            <a href="/carteira" class="folder-button">Acessar painel <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a>
+        </div>
+    </div>
+
+    <div class="folder-card folder-semaforo">
+        <a href="/semaforo" class="folder-tab">
+            <svg class="folder-icon" aria-hidden="true"><use href="#icon-folder"></use></svg>
+            <strong>Semáforo de Planos de Ação</strong>
+        </a>
+        <div class="folder-body">
+            <div class="folder-body-icon"><svg class="icon" aria-hidden="true"><use href="#icon-semaforo"></use></svg></div>
+            <p>Situação de todos os planos de ação por posição. Cada plano de ação recebe uma posição no semáforo conforme critérios de prazo, risco e reincidência. A posição determina o nível de atenção exigido da UAUD e da Alta Administração.</p>
+            <a href="/semaforo" class="folder-button">Acessar painel <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a>
+        </div>
+    </div>
+
+    <div class="folder-card folder-paint">
+        <a href="/execucao-paint" class="folder-tab">
+            <svg class="folder-icon" aria-hidden="true"><use href="#icon-folder"></use></svg>
+            <strong>Execução do PAINT</strong>
+        </a>
+        <div class="folder-body">
+            <div class="folder-body-icon"><svg class="icon" aria-hidden="true"><use href="#icon-paint"></use></svg></div>
+            <p>Status do plano anual de auditoria e percentual de conclusão.</p>
+            <a href="/execucao-paint" class="folder-button">Acessar painel <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a>
+        </div>
+    </div>
+
+    <div class="folder-card folder-front">
+        <a href="/monitoramento" class="folder-tab">
+            <svg class="folder-icon" aria-hidden="true"><use href="#icon-folder"></use></svg>
+            <strong>Monitoramento Geral</strong>
+        </a>
+        <div class="folder-body">
+            <div class="folder-body-icon"><svg class="icon" aria-hidden="true"><use href="#icon-monitor"></use></svg></div>
+            <p>Resumo dos status dos planos de ação, por área auditada e diretoria</p>
+            <a href="/monitoramento" class="folder-button">Acessar painel <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a>
+        </div>
+    </div>
+</section>
+{% endblock %}

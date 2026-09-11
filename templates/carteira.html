@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+<section id="carteiraDashboard" class="carteira-dashboard">
+    <div class="page-header carteira-page-header">
+        <div>
+            <h1>Carteira de Auditoria</h1>
+        </div>
+        <div class="export-actions">
+            <button type="button" class="btn-clear-filters" onclick="clearCarteiraFilters()">Limpar filtros</button>
+            <button type="button" class="btn-main" onclick="exportCarteira('pdf')">Exportar indicadores em PDF</button>
+            <button type="button" class="btn-main" onclick="exportCarteira('excel')">Exportar indicadores em Excel</button>
+        </div>
+    </div>
+
+    <section class="filter-bar carteira-filter-bar" id="carteiraFilterBar"></section>
+    <div class="semaforo-load-message" id="carteiraMessage" hidden></div>
+
+    <section class="carteira-kpis-grid" aria-label="Indicadores da carteira de auditoria">
+        <article class="carteira-kpi-card carteira-kpi-total">
+            <span>CARTEIRA - AUDITORIAS</span>
+            <strong id="carteiraTotal">—</strong>
+        </article>
+        <article class="carteira-kpi-card carteira-kpi-monitoring">
+            <span>AUDITORIAS COM PLANOS EM MONITORAMENTO</span>
+            <strong id="carteiraMonitoring">—</strong>
+        </article>
+        <article class="carteira-kpi-card carteira-kpi-closed">
+            <span>AUDITORIAS ENCERRADAS</span>
+            <strong id="carteiraClosed">—</strong>
+        </article>
+        <article class="carteira-kpi-card carteira-kpi-awaiting">
+            <span>AGUARDANDO PLANO DE AÇÃO</span>
+            <strong id="carteiraAwaiting">—</strong>
+        </article>
+    </section>
+
+    <section class="carteira-charts-grid">
+        <article class="carteira-chart-card">
+            <h2>Situação da Carteira</h2>
+            <div class="carteira-chart-wrap">
+                <canvas id="carteiraStatusChart"></canvas>
+            </div>
+        </article>
+        <article class="carteira-chart-card">
+            <h2>Distribuição por PAINT</h2>
+            <div class="carteira-chart-wrap">
+                <canvas id="carteiraPaintChart"></canvas>
+            </div>
+        </article>
+    </section>
+
+    <section class="table-section carteira-table-section">
+        <div class="active-filter-bar">
+            <span id="carteiraTableLabel">Tabelas Analíticas - Total da Carteira</span>
+            <div class="export-actions">
+                <button type="button" class="btn-clear-filters" onclick="clearCarteiraTableFilters()">Limpar filtros</button>
+                <button type="button" class="btn-main small" onclick="exportCarteiraTable('pdf')">Exportar tabela em PDF</button>
+                <button type="button" class="btn-main small" onclick="exportCarteiraTable('excel')">Exportar tabela em Excel</button>
+            </div>
+        </div>
+
+        <input class="search-input" id="carteiraTableSearch" placeholder="Pesquisar em qualquer coluna das tabelas da carteira...">
+
+        <div class="carteira-folder-table carteira-folder-main">
+            <div class="carteira-folder-tabs" role="tablist" aria-label="Tabelas analíticas da carteira">
+                <button type="button" class="carteira-folder-tab carteira-tab-main active" data-table="carteira" role="tab" aria-selected="true">Carteira</button>
+                <button type="button" class="carteira-folder-tab carteira-tab-awaiting" data-table="aguardando" role="tab" aria-selected="false">Aguard. PA</button>
+            </div>
+            <div class="table-responsive analytical-table-wrap carteira-analytical-table-wrap">
+                <table class="table table-hover" id="carteiraTable">
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</section>
+{% endblock %}

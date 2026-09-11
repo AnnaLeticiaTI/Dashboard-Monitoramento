@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Acesso privado | Dashboard Auditoria</title>
+    <link rel="stylesheet" href="/css/login.css?v=20260823-1">
+</head>
+<body>
+    <main class="login-page">
+        <section class="welcome-panel" aria-labelledby="welcome-title">
+            <div class="brand-mark" aria-label="Dashboard Auditoria">
+                <svg viewBox="0 0 64 64" aria-hidden="true">
+                    <path d="M32 5 54 13v15c0 14-8.8 24.5-22 31C18.8 52.5 10 42 10 28V13z"></path>
+                    <path d="M22 32.5 29 39l14-16"></path>
+                </svg>
+                <span>Dashboard Auditoria</span>
+            </div>
+
+            <div class="welcome-copy">
+                <span class="welcome-kicker">Acesso exclusivo</span>
+                <h1 id="welcome-title">Olá, Sejam Bem vindos!</h1>
+                <p>Este é um dashboard privado.</p>
+            </div>
+
+            <div class="decorative-grid" aria-hidden="true"></div>
+            <div class="decorative-ring ring-one" aria-hidden="true"></div>
+            <div class="decorative-ring ring-two" aria-hidden="true"></div>
+        </section>
+
+        <section class="form-panel" aria-labelledby="login-title">
+            <div class="login-card">
+                <div class="login-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 3 20 6v5c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6z"></path>
+                        <path d="M9.5 11.5V10a2.5 2.5 0 0 1 5 0v1.5"></path>
+                        <rect x="8.5" y="11.5" width="7" height="5.5" rx="1.2"></rect>
+                    </svg>
+                </div>
+                <p class="login-eyebrow">Área restrita</p>
+                <h2 id="login-title">Entrar no dashboard</h2>
+                <p class="login-subtitle">Use o acesso fornecido pela administração.</p>
+
+                {% if configuration_error %}
+                    <div class="login-alert" role="alert">
+                        A autenticação ainda não foi configurada neste ambiente.
+                    </div>
+                {% elif error %}
+                    <div class="login-alert" role="alert">{{ error }}</div>
+                {% endif %}
+
+                <form method="post" action="/login" autocomplete="on">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                    <input type="hidden" name="next" value="{{ next_url }}">
+
+                    <label for="username">Usuário</label>
+                    <div class="input-wrap">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="12" cy="8" r="3.5"></circle>
+                            <path d="M5 20c.6-4.3 2.9-6.5 7-6.5s6.4 2.2 7 6.5"></path>
+                        </svg>
+                        <input id="username" name="username" type="text" autocomplete="username" required autofocus {% if configuration_error %}disabled{% endif %}>
+                    </div>
+
+                    <label for="password">Senha</label>
+                    <div class="input-wrap">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <rect x="5" y="10" width="14" height="10" rx="2"></rect>
+                            <path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v2"></path>
+                        </svg>
+                        <input id="password" name="password" type="password" autocomplete="current-password" required {% if configuration_error %}disabled{% endif %}>
+                    </div>
+
+                    <button type="submit" {% if configuration_error %}disabled{% endif %}>Entrar</button>
+                </form>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

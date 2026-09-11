@@ -1,0 +1,14 @@
+.env
+.env.local
+.vercel
+venv/
+.venv/
+exports/*
+!exports/.gitkeep
+__pycache__/
+*.py[cod]
+*.zip
+*.docx
+*.pdf
+.DS_Store
+Thumbs.db

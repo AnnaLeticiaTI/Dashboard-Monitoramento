@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>Monitoramento Geral</h1>
+    </div>
+    <div class="export-actions">
+        <button type="button" class="btn-clear-filters" onclick="clearFilters()">Limpar filtros</button>
+        <button class="btn-main" onclick="exportIndicators('pdf')">Exportar indicadores em PDF</button>
+        <button class="btn-main" onclick="exportIndicators('excel')">Exportar indicadores em Excel</button>
+    </div>
+</div>
+
+<section class="filter-bar" id="filterBar"></section>
+
+<section class="cards-grid monitoring-kpis" id="summaryCards"></section>
+
+<section class="overview-panels-grid">
+    <article class="overview-panel-card">
+        <h2>Visão Geral dos Planos de Ação</h2>
+        <div class="overview-panel-content">
+            <div class="overview-status-table-wrap">
+                <table class="overview-status-table" id="statusOverviewTable">
+                    <thead><tr><th>Situação</th><th>Quant.</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="overview-status-chart-wrap"><canvas id="statusOverviewChart"></canvas></div>
+        </div>
+    </article>
+
+    <article class="overview-panel-card">
+        <h2>Visão Geral de Origem</h2>
+        <div class="overview-panel-content">
+            <div class="overview-status-table-wrap">
+                <table class="overview-status-table" id="originOverviewTable">
+                    <thead><tr><th>Origem</th><th>Quant.</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="overview-status-chart-wrap"><canvas id="originOverviewChart"></canvas></div>
+        </div>
+    </article>
+</section>
+
+<section class="comparison-panels-grid">
+    <article class="indicator-table-section comparison-panel-card">
+        <div class="section-title-row">
+            <div>
+                <h2>Planos de Ação por Diretoria</h2>
+            </div>
+        </div>
+        <div class="table-responsive compact-indicator-table">
+            <table class="table table-hover grouped-indicator-table" id="directorateIndicatorTable">
+                <thead></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </article>
+
+    <article class="chart-card comparison-panel-card grouped-chart-card">
+        <h2>Gráfico de Planos por Diretoria</h2>
+        <div class="grouped-chart-wrap">
+            <canvas id="directorateChart"></canvas>
+        </div>
+    </article>
+</section>
+
+
+<section class="comparison-panels-grid">
+    <article class="indicator-table-section comparison-panel-card">
+        <div class="section-title-row">
+            <div>
+                <h2>Planos de Ação por Unidade/Agência</h2>
+            </div>
+        </div>
+        <div class="compact-indicator-table unit-indicator-table-wrap">
+            <table class="table table-hover grouped-indicator-table" id="unitIndicatorTable">
+                <thead></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </article>
+
+    <article class="chart-card comparison-panel-card grouped-chart-card">
+        <h2>Gráfico de Planos por Unidade/Agência</h2>
+        <div class="grouped-chart-wrap">
+            <canvas id="unitChart"></canvas>
+        </div>
+    </article>
+</section>
+
+<section class="repactuation-kpis-grid">
+    <article class="repactuation-kpi-card">
+        <span>Planos Repactuados</span>
+        <strong id="repactuatedPlansKpi">0</strong>
+    </article>
+    <article class="repactuation-kpi-card">
+        <span>Taxa de Repactuação</span>
+        <strong id="repactuationRateKpi">0,00%</strong>
+    </article>
+</section>
+
+<section class="repactuation-panels-grid">
+    <article class="overview-panel-card repactuation-panel-card repactuation-table-card">
+        <h2>Repactuações e Planos Ativos</h2>
+        <div class="repactuation-table-wrap">
+            <table class="repactuation-summary-table" id="repactuationSummaryTable">
+                <thead>
+                    <tr>
+                        <th>Repactuações</th>
+                        <th>Quant. Planos</th>
+                        <th>%</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </article>
+
+    <article class="overview-panel-card repactuation-panel-card repactuation-chart-card">
+        <h2>Gráfico de Repactuações e Planos Ativos</h2>
+        <div class="repactuation-chart-wrap">
+            <canvas id="activePlansChart"></canvas>
+        </div>
+    </article>
+</section>
+
+<section class="repactuation-period-grid">
+    <article class="indicator-table-section comparison-panel-card repactuation-period-card">
+        <div class="section-title-row">
+            <div>
+                <h2>Período Previsto para Conclusão de Planos</h2>
+            </div>
+        </div>
+        <div class="repactuation-period-table-wrap">
+            <table class="repactuation-period-table" id="repactuationPeriodTable">
+                <thead>
+                    <tr><th>Planos Repactuados e Vencidos</th><th>Quant. Planos</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </article>
+
+    <article class="chart-card comparison-panel-card repactuation-period-card">
+        <h2>Gráfico do Período Previsto de Conclusão de Plano</h2>
+        <div class="repactuation-period-chart-wrap">
+            <canvas id="repactuationPeriodChart"></canvas>
+        </div>
+    </article>
+</section>
+
+<section class="table-section">
+    <div class="active-filter-bar">
+        <span id="activeFilters">Nenhum filtro ativo.</span>
+        <div class="export-actions">
+            <button type="button" class="btn-clear-filters" onclick="clearFilters()">Limpar filtros</button>
+            <button type="button" class="btn-main small" onclick="exportTable('excel')">Exportar tabela em Excel</button>
+            <button type="button" class="btn-main small" onclick="exportTable('pdf')">Exportar tabela em PDF</button>
+        </div>
+    </div>
+
+    <input class="search-input" id="tableSearch" placeholder="Pesquisar em qualquer coluna da tabela...">
+
+    <div class="table-responsive analytical-table-wrap">
+        <table class="table table-hover" id="dataTable">
+            <thead></thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

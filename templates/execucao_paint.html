@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+<section id="paintDashboard" class="paint-dashboard">
+    <div class="page-header paint-page-header">
+        <div>
+            <h1>Execução do PAINT</h1>
+        </div>
+        <div class="export-actions">
+            <button type="button" class="btn-clear-filters" onclick="clearPaintFilters()">Limpar filtros</button>
+            <button type="button" class="btn-main" onclick="exportPaint('pdf')">Exportar indicadores em PDF</button>
+            <button type="button" class="btn-main" onclick="exportPaint('excel')">Exportar indicadores em Excel</button>
+        </div>
+    </div>
+
+    <section class="filter-bar paint-filter-bar" id="paintFilterBar"></section>
+    <div class="semaforo-load-message" id="paintMessage" hidden></div>
+
+    <section class="paint-kpis-grid" aria-label="Indicadores da execução do PAINT">
+        <article class="paint-kpi-card paint-kpi-total">
+            <span>TOTAL DE AUDITORIAS</span>
+            <strong id="paintTotal">—</strong>
+        </article>
+        <article class="paint-kpi-card paint-kpi-completed">
+            <span>CONCLUÍDAS</span>
+            <strong id="paintCompleted">—</strong>
+        </article>
+        <article class="paint-kpi-card paint-kpi-running">
+            <span>EM ANDAMENTO</span>
+            <strong id="paintRunning">—</strong>
+        </article>
+        <article class="paint-kpi-card paint-kpi-not-started">
+            <span>NÃO INICIADAS</span>
+            <strong id="paintNotStarted">—</strong>
+        </article>
+    </section>
+
+    <section class="paint-charts-grid">
+        <article class="paint-chart-card">
+            <h2>Processos e Status</h2>
+            <div class="paint-chart-wrap paint-process-chart-wrap">
+                <canvas id="paintProcessStatusChart"></canvas>
+            </div>
+        </article>
+        <article class="paint-chart-card">
+            <h2>Gráfico por Status</h2>
+            <div class="paint-chart-wrap paint-distribution-chart-wrap">
+                <canvas id="paintStatusDistributionChart"></canvas>
+            </div>
+        </article>
+    </section>
+
+    <section class="table-section paint-table-section">
+        <div class="active-filter-bar">
+            <span id="paintTableLabel">Tabela Analítica - Execução do PAINT</span>
+            <div class="export-actions">
+                <button type="button" class="btn-clear-filters" onclick="clearPaintTableFilters()">Limpar filtros</button>
+                <button type="button" class="btn-main small" onclick="exportPaintTable('pdf')">Exportar tabela em PDF</button>
+                <button type="button" class="btn-main small" onclick="exportPaintTable('excel')">Exportar tabela em Excel</button>
+            </div>
+        </div>
+
+        <input class="search-input" id="paintTableSearch" placeholder="Pesquisar em qualquer coluna da tabela do PAINT...">
+
+        <div class="table-responsive analytical-table-wrap paint-analytical-table-wrap">
+            <table class="table table-hover" id="paintTable">
+                <thead></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </section>
+</section>
+{% endblock %}

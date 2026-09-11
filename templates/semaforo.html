@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header semaforo-page-header">
+    <div>
+        <h1>Semáforo de Planos de Ação</h1>
+    </div>
+    <div class="export-actions">
+        <button type="button" class="btn-clear-filters" onclick="clearSemaforoFilters()">Limpar filtros</button>
+        <button type="button" class="btn-main" onclick="exportSemaforo('pdf')">Exportar indicadores em PDF</button>
+        <button type="button" class="btn-main" onclick="exportSemaforo('excel')">Exportar indicadores em Excel</button>
+    </div>
+</div>
+
+<section class="filter-bar semaforo-filter-bar" id="semaforoFilterBar"></section>
+
+<div class="semaforo-load-message" id="semaforoMessage" hidden></div>
+
+<section class="semaforo-kpis-grid" id="semaforoDashboard" aria-label="Indicadores do semáforo de planos de ação">
+    <article class="semaforo-kpi-card semaforo-kpi-attention">
+        <span>ATENÇÃO</span>
+        <strong id="semaforoAttentionValue" aria-label="Valor ainda não disponível">—</strong>
+        <small id="semaforoAttentionPercent">% do Total</small>
+    </article>
+    <article class="semaforo-kpi-card semaforo-kpi-monitoring">
+        <span>MONITORAMENTO</span>
+        <strong id="semaforoMonitoringValue" aria-label="Valor ainda não disponível">—</strong>
+        <small id="semaforoMonitoringPercent">% do Total</small>
+    </article>
+    <article class="semaforo-kpi-card semaforo-kpi-knowledge">
+        <span>CONHECIMENTO</span>
+        <strong id="semaforoKnowledgeValue" aria-label="Valor ainda não disponível">—</strong>
+        <small id="semaforoKnowledgePercent">% do Total</small>
+    </article>
+</section>
+
+<section class="semaforo-charts-grid">
+    <article class="semaforo-chart-card">
+        <h2>Planos Ativos por Risco</h2>
+        <div class="semaforo-risk-chart" role="img" aria-label="Gráfico dos planos ativos por classificação de risco">
+            <canvas id="semaforoRiskChart"></canvas>
+        </div>
+    </article>
+
+    <article class="semaforo-chart-card">
+        <h2>Distribuição por Risco</h2>
+        <div class="semaforo-condition-chart" role="img" aria-label="Gráfico percentual da distribuição por risco">
+            <div class="semaforo-empty-donut" id="semaforoRiskDistributionPlaceholder"></div>
+            <canvas id="semaforoRiskDistributionChart" hidden></canvas>
+        </div>
+    </article>
+
+    <article class="semaforo-chart-card">
+        <h2>Condições do Semáforo</h2>
+        <div class="semaforo-risk-chart semaforo-rules-chart" role="img" aria-label="Gráfico das condições e planos do semáforo">
+            <div class="condition-list" id="semaforoConditionChart"></div>
+        </div>
+    </article>
+</section>
+
+<section class="semaforo-kpis-grid reincidence-kpis-grid" id="reincidenceDashboard" aria-label="Indicadores de reincidência dos planos de ação">
+    <article class="semaforo-kpi-card reincidence-kpi-monitoring">
+        <span>PLANOS EM MONITORAMENTO</span>
+        <strong id="reincidenceMonitoringValue" aria-label="Valor ainda não disponível">—</strong>
+    </article>
+    <article class="semaforo-kpi-card reincidence-kpi-recurrent">
+        <span>PLANOS REINCIDENTES</span>
+        <strong id="reincidencePlansValue" aria-label="Valor ainda não disponível">—</strong>
+    </article>
+    <article class="semaforo-kpi-card reincidence-kpi-rate">
+        <span>TAXA DE REINCIDÊNCIA</span>
+        <strong id="reincidenceRateValue" aria-label="Valor ainda não disponível">—</strong>
+    </article>
+</section>
+
+<section class="semaforo-charts-grid reincidence-charts-grid">
+    <article class="semaforo-chart-card">
+        <h2>Criticidade de Recomendação Reincidente</h2>
+        <div class="semaforo-risk-chart" role="img" aria-label="Gráfico de criticidade das recomendações reincidentes">
+            <canvas id="reincidenceCriticalityChart"></canvas>
+        </div>
+    </article>
+
+    <article class="semaforo-chart-card">
+        <h2>Recomendação Reincidente de Auditoria</h2>
+        <div class="reincidence-steps-chart" role="img" aria-label="Gráfico dos planos reincidentes por relatório de auditoria">
+            <div class="reincidence-steps-placeholder" id="reincidenceReportsPlaceholder">Sem dados de reincidência.</div>
+            <div class="reincidence-report-list" id="reincidenceReportsChart" hidden></div>
+        </div>
+    </article>
+</section>
+
+<section class="table-section semaforo-analytical-section">
+    <div class="active-filter-bar">
+        <span id="semaforoActivePlansLabel">Tabela Analítica - Planos Ativos</span>
+        <div class="export-actions">
+            <button type="button" class="btn-clear-filters" onclick="clearSemaforoTableFilters()">Limpar filtros</button>
+            <button type="button" class="btn-main small" onclick="exportSemaforoTable('pdf')">Exportar tabela em PDF</button>
+            <button type="button" class="btn-main small" onclick="exportSemaforoTable('excel')">Exportar tabela em Excel</button>
+        </div>
+    </div>
+
+    <input class="search-input" id="semaforoTableSearch" placeholder="Pesquisar nos planos ativos...">
+
+    <div class="table-responsive analytical-table-wrap semaforo-analytical-table-wrap">
+        <table class="table table-hover" id="semaforoDataTable">
+            <thead></thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Monitoramento</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css?v=20260827-1">
+</head>
+<body class="{% if active_page != 'inicio' %}sidebar-collapsed{% endif %}">
+    {% include "icons.html" %}
+
+    <aside class="sidebar">
+        <div class="sidebar-main">
+            <div class="user-box">
+                <div class="avatar" aria-label="Ilustração do Dashboard de Monitoramento">
+                    <svg class="avatar-character" viewBox="0 0 64 64" aria-hidden="true">
+                        <circle class="avatar-head" cx="32" cy="21" r="8"></circle>
+                        <path class="avatar-hair" d="M24.5 19.5c1-6 4.5-9 9.5-8.5 4.3.4 6.6 3.3 6.5 7.8-2.7-1-5.4-2.4-7.4-4.3-2 2.4-4.8 4.1-8.6 5z"></path>
+                        <path class="avatar-body" d="M17 51c1.3-10.7 6.4-16 15-16s13.7 5.3 15 16"></path>
+                        <path class="avatar-shirt" d="m25 37 7 8 7-8M32 45v7"></path>
+                        <path class="avatar-smile" d="M29 24.5c1.7 1.5 4.3 1.5 6 0"></path>
+                    </svg>
+                </div>
+                <div class="user-text">
+                    <strong>Dashboard</strong>
+                    <span>Monitoramento</span>
+                </div>
+            </div>
+
+            <nav class="menu-links">
+                <a href="/" title="Início Dashboard" class="menu-item {% if active_page == 'inicio' %}active{% endif %}">
+                    <svg class="menu-icon" aria-hidden="true"><use href="#icon-home"></use></svg>
+                    <span>Início Dashboard</span>
+                </a>
+
+                <a href="/monitoramento" title="Monitoramento Geral" class="menu-item {% if active_page == 'monitoramento' %}active{% endif %}">
+                    <svg class="menu-icon" aria-hidden="true"><use href="#icon-monitor"></use></svg>
+                    <span>Monitoramento Geral</span>
+                </a>
+
+                <a href="/carteira" title="Carteira de Auditoria" class="menu-item {% if active_page == 'carteira' %}active{% endif %}">
+                    <svg class="menu-icon" aria-hidden="true"><use href="#icon-portfolio"></use></svg>
+                    <span>Carteira de Auditoria</span>
+                </a>
+
+                <a href="/semaforo" title="Semáforo de Planos de Ação" class="menu-item {% if active_page == 'semaforo' %}active{% endif %}">
+                    <svg class="menu-icon" aria-hidden="true"><use href="#icon-semaforo"></use></svg>
+                    <span>Semáforo de Planos de Ação</span>
+                </a>
+
+                <a href="/execucao-paint" title="Execução do PAINT" class="menu-item {% if active_page == 'execucao_paint' %}active{% endif %}">
+                    <svg class="menu-icon" aria-hidden="true"><use href="#icon-paint"></use></svg>
+                    <span>Execução do PAINT</span>
+                </a>
+            </nav>
+        </div>
+
+        <div class="sidebar-footer">
+            <a href="/informacoes" title="Informações" class="menu-item {% if active_page == 'informacoes' %}active{% endif %}">
+                <svg class="menu-icon" aria-hidden="true"><use href="#icon-info"></use></svg>
+                <span>Informações</span>
+            </a>
+            <form class="logout-form" action="/logout" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                <button class="menu-item logout-button" type="submit" title="Sair do dashboard">
+                    <svg class="menu-icon" aria-hidden="true"><use href="#icon-logout"></use></svg>
+                    <span>Sair</span>
+                </button>
+            </form>
+            <small>Versão 3.5</small>
+        </div>
+    </aside>
+
+    <main class="content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+    <script src="/js/script.js?v=20260825-1"></script>
+</body>
+</html>

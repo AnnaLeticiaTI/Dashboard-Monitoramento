@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="information-page">
+    <header class="page-header information-header">
+        <div>
+            <h1>Informações</h1>
+        </div>
+    </header>
+
+    <div class="information-sources-grid">
+        <article class="information-source-card">
+            <svg class="information-icon" aria-hidden="true"><use href="#icon-database"></use></svg>
+            <div>
+                <h2>{{ monitoring.arquivo }}</h2>
+                <span>Período: {{ monitoring.periodo }}</span>
+            </div>
+        </article>
+
+        <article class="information-source-card">
+            <svg class="information-icon" aria-hidden="true"><use href="#icon-database"></use></svg>
+            <div>
+                <h2>{{ paint.arquivo }}</h2>
+                <span>Período: {{ paint.periodo }}</span>
+            </div>
+        </article>
+
+        <article class="information-source-card">
+            <svg class="information-icon" aria-hidden="true"><use href="#icon-database"></use></svg>
+            <div>
+                <h2>{{ carteira.arquivo }}</h2>
+                <span>Período: {{ carteira.periodo }}</span>
+            </div>
+        </article>
+    </div>
+</section>
+{% endblock %}
